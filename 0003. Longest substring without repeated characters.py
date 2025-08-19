@@ -1,8 +1,18 @@
 class Solution:
-    def largestGoodInteger(self, num: str) -> str:
-        target = ""
-        for i in range(0, 10):
-            if (str(i) * 3) in num:
-                target = str(i) * 3
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        seen = {}
+        output = 0
+        left = 0
 
-        return target
+        for right in range(len(s)):
+            if s[right] not in seen:
+                output = max(output, right - left + 1 ) 
+            else:
+                if seen[s[right]] < left:
+                    output = max(output, right - left + 1 ) 
+                else:
+                    left = seen[s[right]] + 1
+                
+            seen[s[right]] = right
+        return output
+
